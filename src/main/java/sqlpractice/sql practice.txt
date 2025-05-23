@@ -1,0 +1,84 @@
+CREATE TABLE employees (
+	emp_id INT,
+	emp_name VARCHAR(20),
+	dep_id, INT
+);
+
+CREATE TABLE department(
+	dep_id INT,
+	dep_name VARCHAR(20)
+);
+
+
+INSERT INTO department (dep_id, dep_name) VALUES
+(1, 'Sales'),
+(2, 'Engineering'),
+(3, 'HR');
+
+
+INSERT INTO employees (emp_id, emp_name, dep_id) VALUES
+(101, 'Alice', 1),
+(102, 'Bob', 2),
+(103, 'Charlie', 2),
+(104, 'Diana', 1),
+(105, 'Eve', 3),
+(106, 'Frank', NULL),
+(107, 'Grace', 2),
+(108, 'Henry', 4),
+(109, 'Ivy', 5),
+(110, 'Jack', NULL),
+(111, 'Karen', 3),
+(112, 'Leo', 10),
+(113, 'Mona', 1),
+(114, 'Nate', 2),
+(115, 'Olivia', 3),
+(116, 'Paul', 4),
+(117, 'Quincy', NULL),
+(118, 'Rita', 5),
+(119, 'Sam', 2),
+(120, 'Tina', 1),
+(121, 'Uma', 4),
+(122, 'Victor', NULL);
+
+
+SELECT * FROM employees e
+
+SELECT * FROM department d
+
+SELECT emp_id, emp_name
+FROM employees
+WHERE dep_id IS NULL;
+
+SELECT emp_id, emp_name
+FROM employees
+WHERE dep_id IS NOT NULL;
+
+SELECT emp_id, emp_name
+FROM employees
+WHERE dep_id = 2;
+
+SELECT dep_id, COUNT(*) AS headcount
+FROM employees
+GROUP BY dep_id;
+
+SELECT
+	d.dep_name,
+	COUNT(e.emp_id) as 'head_count'
+FROM
+	department d
+INNER JOIN employees e WHERE d.dep_id == e.dep_id
+GROUP BY d.dep_name
+
+
+SELECT e.emp_id, e.emp_name, d.dep_name FROM employees e INNER JOIN department d ON e.dep_id == d.dep_id
+
+SELECT e.emp_id, e.emp_name, d.dep_name FROM employees e RIGHT JOIN department d on e.dep_id == d.dep_id
+
+SELECT e.emp_id, e.emp_name, d.dep_name FROM employees e LEFT JOIN department d on e.dep_id == d.dep_id
+
+SELECT e.emp_id, e.emp_name, d.dep_name FROM employees e FULL JOIN department d on e.dep_id == d.dep_id
+
+
+SELECT emp_id FROM employees e
+UNION
+SELECT dep_id FROM department d
